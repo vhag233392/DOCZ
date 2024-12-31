@@ -1,0 +1,73 @@
+<div class="max-w-4xl mx-auto p-4">
+  <!-- Portada -->
+  <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+    <div class="text-center mb-8">
+      <input
+        [(ngModel)]="documentData.title"
+        placeholder="Título del trabajo"
+        class="w-full text-2xl font-bold text-center border-b border-gray-300 focus:outline-none focus:border-blue-500 p-2"
+      >
+    </div>
+
+    <div class="space-y-4">
+      <input
+        [(ngModel)]="documentData.author"
+        placeholder="Nombre del autor"
+        class="w-full border-b border-gray-300 focus:outline-none focus:border-blue-500 p-2"
+      >
+      <input
+        [(ngModel)]="documentData.institution"
+        placeholder="Afiliación institucional"
+        class="w-full border-b border-gray-300 focus:outline-none focus:border-blue-500 p-2"
+      >
+      <input
+        [(ngModel)]="documentData.course"
+        placeholder="Número de curso"
+        class="w-full border-b border-gray-300 focus:outline-none focus:border-blue-500 p-2"
+      >
+      <input
+        [(ngModel)]="documentData.professor"
+        placeholder="Nombre del profesor"
+        class="w-full border-b border-gray-300 focus:outline-none focus:border-blue-500 p-2"
+      >
+      <input
+        type="date"
+        [(ngModel)]="documentData.date"
+        class="w-full border-b border-gray-300 focus:outline-none focus:border-blue-500 p-2"
+      >
+    </div>
+  </div>
+
+  <!-- Editor de contenido -->
+  <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+    <textarea
+      [(ngModel)]="documentData.content"
+      placeholder="Contenido del documento..."
+      class="w-full h-96 p-4 border rounded focus:outline-none focus:border-blue-500"
+    ></textarea>
+  </div>
+
+  <!-- Botón Exportar PDF -->
+  <button
+    (click)="exportToPDF()"
+    class="mb-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+  >
+    Exportar a PDF
+  </button>
+
+  <!-- Vista previa -->
+  <div class="bg-white rounded-lg shadow-lg p-6">
+    <h2 class="text-xl font-bold mb-4">Vista Previa:</h2>
+    <div id="document-preview" class="prose max-w-none">
+      <div class="text-center mb-8">
+        <h1 class="text-2xl font-bold">{{documentData.title}}</h1>
+        <p class="mt-4">{{documentData.author}}</p>
+        <p>{{documentData.institution}}</p>
+        <p>{{documentData.course}}</p>
+        <p>{{documentData.professor}}</p>
+        <p>{{documentData.date | date}}</p>
+      </div>
+      <div [innerHTML]="formatContent(documentData.content)"></div>
+    </div>
+  </div>
+</div>
