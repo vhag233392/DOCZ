@@ -39,46 +39,97 @@
         class="w-full text-center border-b border-gray-300 focus:outline-none focus:border-blue-500 p-2"
       >
 
-      <!-- Selector de márgenes -->
-      <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2">
-          Márgenes del documento
-        </label>
-        <select
-          [(ngModel)]="documentData.margin"
-          class="w-full p-2 border rounded focus:outline-none focus:border-blue-500"
-        >
-          <option *ngFor="let margin of margins" [value]="margin.value">
-            {{margin.label}}
-          </option>
-        </select>
+      <!-- Configuración del documento -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- Selector de márgenes -->
+        <div>
+          <label class="block text-gray-700 text-sm font-bold mb-2">
+            Márgenes del documento
+          </label>
+          <select
+            [(ngModel)]="documentData.margin"
+            class="w-full p-2 border rounded focus:outline-none focus:border-blue-500"
+          >
+            <option *ngFor="let margin of margins" [value]="margin.value">
+              {{margin.label}}
+            </option>
+          </select>
+        </div>
+
+        <!-- Selector de tamaño de fuente -->
+        <div>
+          <label class="block text-gray-700 text-sm font-bold mb-2">
+            Tamaño de fuente
+          </label>
+          <select
+            [(ngModel)]="documentData.fontSize"
+            class="w-full p-2 border rounded focus:outline-none focus:border-blue-500"
+          >
+            <option *ngFor="let size of fontSizes" [value]="size.value">
+              {{size.label}}
+            </option>
+          </select>
+        </div>
+
+        <!-- Selector de alineación -->
+        <div>
+          <label class="block text-gray-700 text-sm font-bold mb-2">
+            Alineación del texto
+          </label>
+          <select
+            [(ngModel)]="documentData.alignment"
+            class="w-full p-2 border rounded focus:outline-none focus:border-blue-500"
+          >
+            <option *ngFor="let align of alignments" [value]="align.value">
+              {{align.label}}
+            </option>
+          </select>
+        </div>
       </div>
     </div>
 
     <!-- Área de contenido -->
     <div class="mt-8">
+      <div class="flex justify-between items-center mb-2">
+        <label class="block text-gray-700 text-sm font-bold">
+          Contenido del documento
+        </label>
+        <span class="text-sm text-gray-500">
+          Palabras: {{ wordCount() }}
+        </span>
+      </div>
       <textarea
         [(ngModel)]="documentData.content"
-        placeholder="Contenido del documento..."
+        placeholder="Contenido del documento... Use ### para títulos de sección y #### para subsecciones. Use *texto* para cursivas."
         class="w-full h-96 p-4 border rounded focus:outline-none focus:border-blue-500"
       ></textarea>
     </div>
   </div>
 
-  <!-- Botón Exportar -->
-  <button
-    (click)="exportToPDF()"
-    class="w-full mb-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-  >
-    Exportar a PDF
-  </button>
+  <!-- Botones de acción -->
+  <div class="grid grid-cols-2 gap-4 mb-6">
+    <button
+      (click)="exportToPDF()"
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    >
+      Exportar a PDF
+    </button>
+    <button
+      (click)="autoSave()"
+      class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+    >
+      Guardar borrador
+    </button>
+  </div>
 
-  <!-- Vista previa -->
   <div class="preview-container">
     <h2 class="text-xl font-bold mb-4">Vista Previa:</h2>
-    <div id="document-preview">
+    <div id="document-preview" class="document">
       <!-- Portada -->
-      <div class="cover-page" [style.padding]="documentData.margin + 'in'">
+      <div class="cover-page" [ngStyle]="{
+        'padding': documentData.margin + 'in',
+        'font-size': documentData.fontSize + 'pt'
+      }">
         <div class="title-section">
           <h1 class="title">{{documentData.title}}</h1>
           <div class="author-info">
@@ -92,11 +143,12 @@
       </div>
 
       <!-- Contenido -->
-      <div
-        class="content"
-        [style.padding]="documentData.margin + 'in'"
-        [innerHTML]="formatContent(documentData.content)"
-      ></div>
+      <div class="content" [ngStyle]="{
+        'padding': documentData.margin + 'in',
+        'text-align': documentData.alignment,
+        'font-size': documentData.fontSize + 'pt'
+      }" [innerHTML]="formatContent(documentData.content)">
+      </div>
     </div>
   </div>
 </div>
