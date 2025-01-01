@@ -1,153 +1,172 @@
-<div class="max-w-4xl mx-auto p-4">
+<div class="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 bg-[size:20px_20px] bg-opacity-50"
+     style="background-image:
+    linear-gradient(to right, rgba(99, 102, 241, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(99, 102, 241, 0.1) 1px, transparent 1px);">
+
+  <!-- Logo -->
+  <div class="flex justify-center items-center py-1">
+    <div class="w-52 md:w-64">
+      <img
+        src="logo.png"
+        alt="Logo"
+        class="w-full h-auto transform hover:scale-105 transition-all duration-300 drop-shadow-md"
+      >
+    </div>
+  </div>
+
   <!-- Editor -->
-  <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
-    <!-- Portada -->
-    <div class="mb-8 text-center space-y-6">
-      <input
-        [(ngModel)]="documentData.title"
-        placeholder="Título del trabajo"
-        class="w-full text-2xl font-bold text-center border-b border-gray-300 focus:outline-none focus:border-blue-500 p-2"
-      >
-
-      <input
-        [(ngModel)]="documentData.author"
-        placeholder="Nombre del autor"
-        class="w-full text-center border-b border-gray-300 focus:outline-none focus:border-blue-500 p-2"
-      >
-
-      <input
-        [(ngModel)]="documentData.institution"
-        placeholder="Afiliación institucional"
-        class="w-full text-center border-b border-gray-300 focus:outline-none focus:border-blue-500 p-2"
-      >
-
-      <input
-        [(ngModel)]="documentData.course"
-        placeholder="Número de curso"
-        class="w-full text-center border-b border-gray-300 focus:outline-none focus:border-blue-500 p-2"
-      >
-
-      <input
-        [(ngModel)]="documentData.professor"
-        placeholder="Nombre del profesor"
-        class="w-full text-center border-b border-gray-300 focus:outline-none focus:border-blue-500 p-2"
-      >
-
-      <input
-        type="date"
-        [(ngModel)]="documentData.date"
-        class="w-full text-center border-b border-gray-300 focus:outline-none focus:border-blue-500 p-2"
-      >
-
-      <!-- Configuración del documento -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <!-- Selector de márgenes -->
-        <div>
-          <label class="block text-gray-700 text-sm font-bold mb-2">
-            Márgenes del documento
-          </label>
-          <select
-            [(ngModel)]="documentData.margin"
-            class="w-full p-2 border rounded focus:outline-none focus:border-blue-500"
-          >
-            <option *ngFor="let margin of margins" [value]="margin.value">
-              {{margin.label}}
-            </option>
-          </select>
-        </div>
-
-        <!-- Selector de tamaño de fuente -->
-        <div>
-          <label class="block text-gray-700 text-sm font-bold mb-2">
-            Tamaño de fuente
-          </label>
-          <select
-            [(ngModel)]="documentData.fontSize"
-            class="w-full p-2 border rounded focus:outline-none focus:border-blue-500"
-          >
-            <option *ngFor="let size of fontSizes" [value]="size.value">
-              {{size.label}}
-            </option>
-          </select>
-        </div>
-
-        <!-- Selector de alineación -->
-        <div>
-          <label class="block text-gray-700 text-sm font-bold mb-2">
-            Alineación del texto
-          </label>
-          <select
-            [(ngModel)]="documentData.alignment"
-            class="w-full p-2 border rounded focus:outline-none focus:border-blue-500"
-          >
-            <option *ngFor="let align of alignments" [value]="align.value">
-              {{align.label}}
-            </option>
-          </select>
-        </div>
-      </div>
-    </div>
-
-    <!-- Área de contenido -->
-    <div class="mt-8">
-      <div class="flex justify-between items-center mb-2">
-        <label class="block text-gray-700 text-sm font-bold">
-          Contenido del documento
-        </label>
-        <span class="text-sm text-gray-500">
-          Palabras: {{ wordCount() }}
-        </span>
-      </div>
-      <textarea
-        [(ngModel)]="documentData.content"
-        placeholder="Contenido del documento... Use ### para títulos de sección y #### para subsecciones. Use *texto* para cursivas."
-        class="w-full h-96 p-4 border rounded focus:outline-none focus:border-blue-500"
-      ></textarea>
-    </div>
-  </div>
-
-  <!-- Botones de acción -->
-  <div class="grid grid-cols-2 gap-4 mb-6">
-    <button
-      (click)="exportToPDF()"
-      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-    >
-      Exportar a PDF
-    </button>
-    <button
-      (click)="autoSave()"
-      class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-    >
-      Guardar borrador
-    </button>
-  </div>
-
-  <div class="preview-container">
-    <h2 class="text-xl font-bold mb-4">Vista Previa:</h2>
-    <div id="document-preview" class="document">
+  <div class="max-w-4xl mx-auto p-4">
+    <div class="bg-white rounded-3xl shadow-2xl p-8 mb-6 border-4 border-indigo-200">
+      <!-- Rest of the editor content remains the same -->
       <!-- Portada -->
-      <div class="cover-page" [ngStyle]="{
-        'padding': documentData.margin + 'in',
-        'font-size': documentData.fontSize + 'pt'
-      }">
-        <div class="title-section">
-          <h1 class="title">{{documentData.title}}</h1>
-          <div class="author-info">
-            <p>{{documentData.author}}</p>
-            <p>{{documentData.institution}}</p>
-            <p>{{documentData.course}}</p>
-            <p>{{documentData.professor}}</p>
-            <p>{{documentData.date | date:'longDate'}}</p>
+      <div class="mb-8 text-center space-y-6">
+        <input
+          [(ngModel)]="documentData.title"
+          placeholder="Título del trabajo"
+          class="w-full text-2xl font-bold text-center bg-purple-50 rounded-2xl border-2 border-purple-200 focus:outline-none focus:border-purple-400 focus:ring-4 focus:ring-purple-100 p-4 transition-all duration-300 hover:bg-purple-100"
+        >
+
+        <input
+          [(ngModel)]="documentData.author"
+          placeholder="Nombre del autor"
+          class="w-full text-center bg-green-50 rounded-2xl border-2 border-green-200 focus:outline-none focus:border-green-400 focus:ring-4 focus:ring-green-100 p-4 transition-all duration-300 hover:bg-green-100"
+        >
+
+        <input
+          [(ngModel)]="documentData.institution"
+          placeholder="Afiliación institucional"
+          class="w-full text-center bg-blue-50 rounded-2xl border-2 border-blue-200 focus:outline-none focus:border-blue-400 focus:ring-4 focus:ring-blue-100 p-4 transition-all duration-300 hover:bg-blue-100"
+        >
+
+        <input
+          [(ngModel)]="documentData.course"
+          placeholder="Número de curso"
+          class="w-full text-center bg-yellow-50 rounded-2xl border-2 border-yellow-200 focus:outline-none focus:border-yellow-400 focus:ring-4 focus:ring-yellow-100 p-4 transition-all duration-300 hover:bg-yellow-100"
+        >
+
+        <input
+          [(ngModel)]="documentData.professor"
+          placeholder="Nombre del profesor"
+          class="w-full text-center bg-pink-50 rounded-2xl border-2 border-pink-200 focus:outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100 p-4 transition-all duration-300 hover:bg-pink-100"
+        >
+
+        <input
+          type="date"
+          [(ngModel)]="documentData.date"
+          class="w-full text-center bg-orange-50 rounded-2xl border-2 border-orange-200 focus:outline-none focus:border-orange-400 focus:ring-4 focus:ring-orange-100 p-4 transition-all duration-300 hover:bg-orange-100"
+        >
+
+        <!-- Configuración del documento -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Selector de márgenes -->
+          <div>
+            <label class="block text-indigo-700 text-sm font-bold mb-2 text-left">
+              Márgenes del documento
+            </label>
+            <select
+              [(ngModel)]="documentData.margin"
+              class="w-full p-4 bg-indigo-50 rounded-2xl border-2 border-indigo-200 focus:outline-none focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100 transition-all duration-300 hover:bg-indigo-100"
+            >
+              <option *ngFor="let margin of margins" [value]="margin.value">
+                {{margin.label}}
+              </option>
+            </select>
+          </div>
+
+          <!-- Selector de tamaño de fuente -->
+          <div>
+            <label class="block text-indigo-700 text-sm font-bold mb-2 text-left">
+              Tamaño de fuente
+            </label>
+            <select
+              [(ngModel)]="documentData.fontSize"
+              class="w-full p-4 bg-indigo-50 rounded-2xl border-2 border-indigo-200 focus:outline-none focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100 transition-all duration-300 hover:bg-indigo-100"
+            >
+              <option *ngFor="let size of fontSizes" [value]="size.value">
+                {{size.label}}
+              </option>
+            </select>
+          </div>
+
+          <!-- Selector de alineación -->
+          <div>
+            <label class="block text-indigo-700 text-sm font-bold mb-2 text-left">
+              Alineación del texto
+            </label>
+            <select
+              [(ngModel)]="documentData.alignment"
+              class="w-full p-4 bg-indigo-50 rounded-2xl border-2 border-indigo-200 focus:outline-none focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100 transition-all duration-300 hover:bg-indigo-100"
+            >
+              <option *ngFor="let align of alignments" [value]="align.value">
+                {{align.label}}
+              </option>
+            </select>
           </div>
         </div>
       </div>
 
-      <!-- Contenido -->
-      <div class="content" [ngStyle]="{
-        'padding': documentData.margin + 'in',
-        'text-align': documentData.alignment,
-        'font-size': documentData.fontSize + 'pt'
-      }" [innerHTML]="formatContent(documentData.content)">
+      <!-- Área de contenido -->
+      <div class="mt-8">
+        <div class="flex justify-between items-center mb-2">
+          <label class="block text-indigo-700 text-sm font-bold">
+            Contenido del documento
+          </label>
+          <span class="text-sm text-indigo-600 bg-indigo-100 px-4 py-2 rounded-full">
+            Palabras: {{ wordCount() }}
+          </span>
+        </div>
+        <textarea
+          [(ngModel)]="documentData.content"
+          placeholder="Contenido del documento... Use ### para títulos de sección y #### para subsecciones. Use *texto* para cursivas."
+          class="w-full h-96 p-6 bg-gray-50 rounded-3xl border-2 border-gray-200 focus:outline-none focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100 transition-all duration-300 hover:bg-gray-100"
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="grid grid-cols-2 gap-6 mb-6">
+      <button
+        (click)="exportToPDF()"
+        class="bg-gradient-to-br from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-4 px-8 rounded-2xl shadow-lg transform hover:scale-105 transition-all duration-300 border-2 border-blue-400"
+      >
+        Exportar a PDF
+        <span class="block text-blue-200 text-sm mt-1">Descargar</span>
+      </button>
+      <button
+        (click)="autoSave()"
+        class="bg-gradient-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 px-8 rounded-2xl shadow-lg transform hover:scale-105 transition-all duration-300 border-2 border-green-400"
+      >
+        Guardar borrador
+      </button>
+    </div>
+
+    <div class="bg-white rounded-3xl shadow-xl p-8 border-4 border-indigo-200">
+      <h2 class="text-xl font-bold mb-6 text-indigo-700 border-b-2 border-indigo-100 pb-2">Vista Previa:</h2>
+      <div id="document-preview" class="document">
+        <!-- Portada -->
+        <div class="cover-page" [ngStyle]="{
+          'padding': documentData.margin + 'in',
+          'font-size': documentData.fontSize + 'pt'
+        }">
+          <div class="title-section">
+            <h1 class="title text-indigo-800">{{documentData.title}}</h1>
+            <div class="author-info space-y-3 text-indigo-600">
+              <p>{{documentData.author}}</p>
+              <p>{{documentData.institution}}</p>
+              <p>{{documentData.course}}</p>
+              <p>{{documentData.professor}}</p>
+              <p>{{documentData.date | date:'longDate'}}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contenido -->
+        <div class="content mt-8" [ngStyle]="{
+          'padding': documentData.margin + 'in',
+          'text-align': documentData.alignment,
+          'font-size': documentData.fontSize + 'pt'
+        }" [innerHTML]="formatContent(documentData.content)">
+        </div>
       </div>
     </div>
   </div>
